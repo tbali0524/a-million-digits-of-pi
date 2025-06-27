@@ -1,6 +1,7 @@
 //! pi_digits library crate.
 
 use num_bigint::BigInt;
+use std::io;
 use std::time;
 
 // 0, 10, 3141592653
@@ -62,6 +63,9 @@ pub fn chudnovsky(_n: i64) -> BigInt {
 }
  */
 pub fn pi_digits(from: usize, len: usize) -> String {
+    if from + len > 1_000_000 {
+        panic!("Works only for first 1 million digits.");
+    }
     let pi = chudnovsky((from + len) as i64);
     let digits = pi
         .to_str_radix(10)
@@ -88,6 +92,77 @@ pub fn parse_args(args: &[String]) -> Result<Option<(usize, usize)>, &'static st
         _ => Err("Invalid arguments"),
     }
 }
+
+pub const PI_FILE_PATH: &str = "./result/pi.txt";
+// pub const PI_FILE_PATH: &str = "./result/pi_295k.txt";
+pub const ENCODED_FILE_PATH: &str = "./result/encoded_295k.txt";
+pub const DECODED_FILE_PATH: &str = "./result/decoded_295k.txt";
+pub const MAX_PI_DIGITS: usize = 295_000;
+pub const BASE_CP: u32 = 0x5000;
+
+// U+0000 to U+007F     : [      128 code points] : 1 byte in UTF-8, 2 bytes in UTF-16
+// U+0080 to U+07FF     : [    1,920 code points] : 2 bytes in UTF-8, 2 bytes in UTF-16
+// U+0800 to U+D7FF     : [   53,248 code points] : 3 bytes in UTF-8, 2 bytes in UTF-16
+// U+E000 to U+FFFF     : [    8,192 code points] : 3 bytes in UTF-8, 2 bytes in UTF-16
+// U+010000 to U+10FFFF : [1,048,576 code points] : 4 bytes in UTF-8, 4 bytes in UTF-16
+// Total valid Unicode  : [1,112,064 code points]
+// U+D800 to U+DFFF     : [    2,048 code points] : surrogates (invalid code points)
+
+/// Encodes each 4 decimal digits to a single Unicode char (from U+5000)
+pub fn encode(pi_digits: &str) -> String {
+    if pi_digits.len() % 4 != 0 {
+        panic!("No padding implemented");
+    }
+    let mut ans = String::new();
+    let mut chunk = 0;
+    let mut counter  = 0;
+    for pi_digit in pi_digits.chars() {
+        if let Some(d) = pi_digit.to_digit(10) {
+            chunk = chunk * 10 + d;
+            counter += 1;
+            if counter < 4 {
+                continue;
+            }
+            let c = char::from_u32(BASE_CP + chunk).unwrap();
+            ans.push(c);
+            counter = 0;
+            chunk = 0;
+        }
+    }
+    ans
+}
+
+/// Decodes a single Unicode char (from U+5000 to U+5000 + 9999) to 4 decimal digits
+pub fn decode(encoded: &str) -> String {
+    let mut ans = String::new();
+    for c in encoded.chars() {
+        let chunk = c as u32;
+        if chunk < BASE_CP || chunk > BASE_CP + 9999 {
+            panic!("Invalid char");
+        }
+        let chunk = chunk - BASE_CP;
+        let mut div = 1_000;
+        for _ in 0..4 {
+            let d = (chunk / div) % 10;
+            ans.push(char::from_digit(d, 10).unwrap());
+            div = div / 10;
+        }
+    }
+    ans
+}
+
+pub fn squash_pi() {
+    let mut line = String::new();
+    io::stdin().read_line(&mut line).unwrap();
+    let index = line.trim().parse::<usize>().unwrap();
+    let mut line = String::new();
+    io::stdin().read_line(&mut line).unwrap();
+    let n = line.trim().parse::<usize>().unwrap();
+    let pi_digits = decode(PI_ENCODED);
+    println!("{}", pi_digits.chars().skip(index).take(n).collect::<String>());
+}
+
+static PI_ENCODED: &str = "";
 
 // --------------------------------------------------------------------
 // crate 'rug' not supported for Windows + MSVC target

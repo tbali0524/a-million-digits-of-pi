@@ -12,6 +12,10 @@ description = "gets the digits of pi"
 license = "MIT"
 keywords = ["pi", "chudnovsky"]
 
+[profile.profiling]
+inherits = "release"
+debug = true
+
 [lib]
 path = "src/lib.rs"
 name = "pi_digits"
