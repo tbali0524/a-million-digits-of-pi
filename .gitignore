@@ -3,8 +3,5 @@
 # rust build directory
 /target
 
-# directory for result
-/result
-
 # profiler output
 /profile.json.gz

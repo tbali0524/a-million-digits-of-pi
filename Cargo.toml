@@ -4,11 +4,11 @@
 [package]
 name = "a-million-digits-of-pi"
 version = "0.1.0"
-edition = "2021"
+edition = "2024"
 authors = ["Balint Toth"]
-rust-version = "1.85"
-description = "gets the digits of pi"
-# repository = "https://github.com/tbali0524/a-million-digits-of-pi/"
+rust-version = "1.92"
+description = "calculate the digits of Pi with the Chudnovsky algorithm"
+repository = "https://github.com/tbali0524/a-million-digits-of-pi/"
 license = "MIT"
 keywords = ["pi", "chudnovsky"]
 
@@ -24,6 +24,8 @@ name = "pi_digits"
 path = "src/main.rs"
 name = "pi_digits"
 
-[dependencies]
-num-bigint = "0.4"
-# rug = "1.26"  # Windows MSVC target is not supported
+[target.'cfg(not(target_os = "windows"))'.dependencies]
+rug = "1.28.1"
+
+[target.'cfg(target_os = "windows")'.dependencies]
+num-bigint = "0.4"  # rug crate does not support Windows MSVC target, num-bigint is a much slower fallback.
