@@ -5,3 +5,6 @@
 
 # profiler output
 /profile.json.gz
+
+# VS Code
+/.vscode
