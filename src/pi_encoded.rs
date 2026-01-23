@@ -45,4 +45,5 @@ pub fn decode(encoded: &str) -> String {
 }
 
 // replace with the result of an encoding run
+#[rustfmt::skip]
 pub static PI_ENCODED: &str = "居朦擮癁奐桸崷嫫儠恥";

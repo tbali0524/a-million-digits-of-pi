@@ -5,17 +5,16 @@ use crate::pi_num_bigint::pi_digits;
 #[cfg(not(target_os = "windows"))]
 use crate::pi_rug::pi_digits;
 
-use crate::pi_encoded::decode;
+use crate::pi_encoded::{BASE_CP, decode};
 use crate::pi_hardcoded::PI_HARDCODED;
 use std::fs;
 
 pub const MAX_DIGITS: usize = 1_000_000;
-pub const PI_FILE_PATH: &str = "./result/pi.txt";
 pub const MAX_DIGITS_TO_ENCODE: usize = 295_000;
+pub const PI_FILE_PATH: &str = "./result/pi.txt";
 pub const ENCODED_FILE_PATH: &str = "./result/encoded_295k.txt";
 pub const DECODED_FILE_PATH: &str = "./result/decoded_295k.txt";
 pub const HARDCODED_FILE_PATH: &str = "./result/hardcoded.txt";
-pub const BASE_CP: u32 = 0x5000;
 
 pub fn cli_generate_pi(from: usize, len: usize) {
     println!("Calculating the digits of Pi...");
@@ -88,7 +87,7 @@ pub fn cli_generate_hardcoded() {
     println!("Result written to file: {HARDCODED_FILE_PATH}");
 }
 
-// Encoding method
+// -- Unicode sections overview:
 // U+0000 to U+007F     : [      128 code points] : 1 byte in UTF-8, 2 bytes in UTF-16
 // U+0080 to U+07FF     : [    1,920 code points] : 2 bytes in UTF-8, 2 bytes in UTF-16
 // U+0800 to U+D7FF     : [   53,248 code points] : 3 bytes in UTF-8, 2 bytes in UTF-16

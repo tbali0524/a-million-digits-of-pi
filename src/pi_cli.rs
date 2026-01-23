@@ -21,11 +21,11 @@ pub fn print_help() {
     println!(
         "\
         Usage:\n\
-        \t pi_digits.exe --generate         [from] [length]     generate digits of pi to file\n\
-        \t pi_digits.exe --encode                               encode pi digits to a compressed unicode string\n\
-        \t pi_digits.exe --hardcode                             generate hardcoded lookup values for pi slices\n\
-        \t pi_digits.exe --lookup-encoded   [from] [length]     lookup pi from encoded string\n\
-        \t pi_digits.exe --lookup-hardcoded [from] [length]     lookup pi from hardcoded slices\n\
+        \t pi_digits.exe --generate         [from] [length]     generate digits of Pi to file\n\
+        \t pi_digits.exe --encode                               encode Pi digits to a compressed unicode string\n\
+        \t pi_digits.exe --hardcode                             generate hardcoded lookup values for Pi slices\n\
+        \t pi_digits.exe --lookup-encoded   [from] [length]     lookup Pi from encoded string\n\
+        \t pi_digits.exe --lookup-hardcoded [from] [length]     lookup Pi from hardcoded slices\n\
         \n\
         Constraints:\n\
         \t from >= 0, length >= 1, from + length <= 1,000,000\n\
