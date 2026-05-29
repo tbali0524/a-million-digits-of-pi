@@ -1,5 +1,4 @@
-# Cargo manifest file for Rust solutions.
-# @see https://doc.rust-lang.org/cargo/reference/manifest.html
+# Cargo [manifest](https://doc.rust-lang.org/cargo/reference/manifest.html).
 
 [package]
 name = "a-million-digits-of-pi"

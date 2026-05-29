@@ -1,5 +1,5 @@
 {
     "default" : true,
     "ul-indent" : { "indent" : 4 },
-    "line-length" : false,
+    "line-length" : false
 }

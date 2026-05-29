@@ -1,10 +1,11 @@
-# git config file: exclude these directories from the git repo.
+# Config for git [ignore](https://git-scm.com/docs/gitignore).
 
 # rust build directory
 /target
 
-# profiler output
+# dev tools output
 /profile.json.gz
+/tarpaulin-report.html
 
-# VS Code
+# IDE
 /.vscode
