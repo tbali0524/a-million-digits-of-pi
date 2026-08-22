@@ -5,7 +5,7 @@ name = "a-million-digits-of-pi"
 version = "0.1.0"
 edition = "2024"
 authors = ["Balint Toth"]
-rust-version = "1.93"
+rust-version = "1.98"
 description = "calculate the digits of Pi with the Chudnovsky algorithm"
 repository = "https://github.com/tbali0524/a-million-digits-of-pi/"
 license = "MIT"
@@ -27,4 +27,4 @@ name = "pi_digits"
 rug = "1.28.1"
 
 [target.'cfg(target_os = "windows")'.dependencies]
-num-bigint = "0.4"  # rug crate does not support Windows MSVC target, num-bigint is a much slower fallback.
+num-bigint = "0.5"  # rug crate does not support Windows MSVC target, num-bigint is a much slower fallback.

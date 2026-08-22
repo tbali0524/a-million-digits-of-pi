@@ -1,6 +1,6 @@
 # A-Million-Digits-of-Pi
 
-![rust v1.95](https://shields.io/badge/rust-1.95-blue?logo=rust)
+![rust v1.98](https://shields.io/badge/rust-1.98-blue?logo=rust)
 ![build](https://img.shields.io/github/actions/workflow/status/tbali0524/a-million-digits-of-pi/qa.yml)
 ![license](https://img.shields.io/github/license/tbali0524/a-million-digits-of-pi)
 
@@ -20,7 +20,7 @@ Constraints:
 
 See also the [justfile](./justfile) for possible usage.
 
-## BNuild prerequisites (Linux)
+## Build prerequisites (Linux)
 
 ```sh
 # assuming Ubuntu 26.04
